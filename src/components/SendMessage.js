@@ -59,16 +59,19 @@ class SendMessage extends Component {
         })
     }
     
+    handleKeyPress = (event) => {
+        if(event.key == 'Enter'){
+          this.onHandleSubmit(event);
+        }
+    }
+
     render() {
         let value = this.state.message;
         return (
-            <div className="message-input">
-                <div className="wrap">
-                    <form onSubmit={this.onHandleSubmit} className="text-chat">
-                        <input onChange={this.onHandleChange} name="message" value={value} type="text" placeholder="Write your message..." />
-                        <i className="fa fa-image load-image" aria-hidden="true"></i>
-                        <button className="submit"><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
-                    </form>
+            <div className="type_msg">  
+                <div className="input_msg_write">
+                    <input type="text" name="message" onChange={this.onHandleChange} className="write_msg" value={value} placeholder="Type a message" onKeyPress={this.handleKeyPress}/>
+                    <button onClick={this.onHandleSubmit} className="msg_send_btn" type="button"><i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                 </div>
             </div>
         );

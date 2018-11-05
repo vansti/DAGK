@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Message from './Message';
 import { withRouter } from 'react-router-dom';
-import { withFirestore, firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import _ from 'lodash';
-import moment from 'moment';
 import { sendMessage } from './../store/actions/messageActions';
 import SendMessage from './SendMessage';
 
@@ -45,31 +44,22 @@ class ListMessages extends Component {
         const idReceiver = this.state.idReceiver;
         const idSum = idSender > idReceiver ? (idSender + idReceiver) : (idReceiver + idSender);
         const firestoreMessages = _.find(_.values(this.props.messages), { 'idSum': idSum });
-        console.log(firestoreMessages);
         let messages = null;
         let listMessage = '';
         if (firestoreMessages) {
             messages = firestoreMessages.messages;
             listMessage = messages.map((message, index) => {
-                const status = message.idSender === idSender ? 'replies' : 'sent';
+                const isReceiveMessage = message.idSender === idSender ? 'true' : '';
                 return (
-                    <Message
-                        key={index}
-                        message={message}
-                        status={status}
-                    />
+                    <Message key={index} message={message} status={isReceiveMessage} />
                 )
             })
         }
         return (
-            <div>
-                <div className="messages">
-                    <ul>
-                        {listMessage}
-                    </ul>
-                    <div style={{ float: "left", clear: "both" }}
-                        ref={(el) => { this.messagesEnd = el; }}>
-                    </div>
+            <div className="mesgs">
+                <div className="msg_history">
+                    {listMessage}  
+                    <div style={{ float: "left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}/>
                 </div>
                 <SendMessage />
             </div>

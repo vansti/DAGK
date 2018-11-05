@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ListMessages from './ListMessages';
 import { connect } from 'react-redux';
-import ContactProfile from './ContactProfile';
 
 class ChatContent extends Component {
     
@@ -11,7 +10,6 @@ class ChatContent extends Component {
         }
         return (
             <div className="content">
-                <ContactProfile/>
                 <ListMessages />
             </div>
         );

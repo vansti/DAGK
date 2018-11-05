@@ -1,12 +1,11 @@
 import React, { Component, Fragment} from 'react';
-import MenuListUsers from '../components/MenuListUsers';
+import MenuListUsers from './MenuListUsers';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import '../styles/home.css'
-import SearchUser from '../components/SearchUser';
-import ChatContent from '../components/ChatContent';
+import './styles/home.css'
+import ChatContent from './ChatContent';
 import {getDataUser} from '../store/actions/chatDataActions';
-import SignOut from '../components/SignOut';
+import SignOut from './SignOut';
 
 class Home extends Component {
 
@@ -19,54 +18,46 @@ class Home extends Component {
     }
     
     componentWillReceiveProps(nextProps) {
-        //console.log(nextProps.match.params.id);
         const { id } = nextProps.match.params;
         this.props.getDataUser(id);
     }
 
     render() {
-        // console.log(this.props.match.params.id);
         const { auth } = this.props;
-        const { displayName, photoURL } = auth;
+        const { displayName, photoURL, phoneNumber, email } = auth;
         return (
-            // <nav className="navbar navbar-inverse">
-            //     <div className='container-fluid'>
-            //         <div className="navbar-header">
-            //             <img className="img-circle" src={photoURL} alt="Logo" style={{width:'40px', marginTop:'5px'}}/> 
-            //         </div>
-            //         <p className="navbar-text">{displayName}</p>
-            //     </div>
-            // </nav>
-            // <div id="frame">
-            //     <div id="sidepanel">
-            //         <div id="profile">
-            //             <div className="wrap">
-            //                 <img id="profile-img" src={photoURL} className="online" alt="" />
-            //                 <p id="profile-name">{displayName}</p>
-            //             </div>
-            //         </div>
-            //         <SearchUser />
-            //         <div id="contacts">
-            //             <MenuListUsers />
-            //         </div>
-            //     </div>
-            //     <ChatContent />
-            // </div>
             <Fragment>
                 <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <a className="navbar-brand" href="#">Chat app</a>
-                    <ul className="navbar-nav ml-auto ">
-                        <li className="nav-item">
-                            <a className="nav-link disabled"  href="#">{displayName}</a>
-                        </li>
-                        <li className="nav-item">
-                            <img className="rounded-circle" src={photoURL} alt="Logo" style={{width:'40px',marginRight:'10px'}}/>     
-                        </li>                      
-                    </ul>
+                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        View Profile
+                    </button>
                     <SignOut/>
                 </nav>
+                <div className="modal" id="myModal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+
+                        <div className="modal-header">
+                            <img className="rounded-circle"  src={photoURL} alt="Logo" style={{width:'40px',marginRight:'10px'}}/>
+                            <h4 style={{fontFamily : "'Spectral', serif"}} className="modal-title">{displayName}'s Profile</h4>
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div className="modal-body">
+                            <p><span style={{fontFamily : "'Playfair Display', serif"}}>Name:</span> {displayName}</p>
+                            <p><span style={{fontFamily : "'Playfair Display', serif"}}>Email:</span> {email}</p>
+                            <p><span style={{fontFamily : "'Playfair Display', serif"}}>Phone number:</span> {phoneNumber}</p>
+                        </div>
+
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div className="container">
-                    <h3 className=" text-center">Messaging</h3>
+                    <h2 className="text-center" style={{fontFamily : "'Rakkas', cursive"}}>Chat App</h2>
                     <div className="messaging">
                         <div className="inbox_msg">
                             <div className="inbox_people">
@@ -85,9 +76,12 @@ class Home extends Component {
                                 </div>
                                 <MenuListUsers/>
                             </div>
+                            <ChatContent />
+                            
                         </div>
                     </div>
                 </div>
+                
             </Fragment>
             
         )

@@ -31,7 +31,7 @@ class MenuUser extends Component {
                         <img className="rounded-circle" src={photoURL} alt="sunil"/> 
                     </div>
                 <div className="chat_ib">
-                    <h5>{username}<span className="chat_date">{status}</span></h5>
+                    <h5 style={{fontFamily : "'Spectral', serif"}}>{username}<span className="chat_date">{status}</span></h5>
                     <p>{online ? "online" : "offline"}</p>
                 </div>
                 </div>

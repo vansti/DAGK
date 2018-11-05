@@ -15,7 +15,7 @@ class SignOut extends Component {
 
     render() {
         return (
-            <button className="btn btn-danger" onClick={this.onSignOut} >Sign out <i   className="fa fa-sign-out"></i></button>
+            <button className="btn btn-danger ml-auto" onClick={this.onSignOut} >Sign out <i   className="fa fa-sign-out"></i></button>
         );
     }
 }

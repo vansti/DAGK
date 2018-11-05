@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment}  from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import { signIn } from '../store/actions/authActions';
-import '../styles/login.css'
 
 class Login extends Component {
     constructor(props) {
@@ -12,13 +11,13 @@ class Login extends Component {
         }
     }
 
-    onSignIn = () => {
+    onSignIn = (e) => {
+        e.preventDefault();
         this.props.signIn((id) => {
             this.props.history.push(`/${id}`);
         });
     }
     componentDidMount() {
-        //console.log(this.props.auth);
         const id = this.props.auth.uid;
         if (localStorage.getItem('login') === 'logged') {
             this.props.history.push(`/${id}`);
@@ -30,11 +29,14 @@ class Login extends Component {
             return <Redirect to={`/${id}`} />;
         }
         return (
-            <div className="container">
-                <button className="btn btn-google btn-login" type="button" onClick={this.onSignIn}>
-                    <span className="fa fa-google-plus" /> Sign in with Google
-                </button>
-            </div>
+            <Fragment>
+                <div className="welcome">Welcome to Chat App</div>
+                <ul>
+                    <li>
+                        <a onClick={this.onSignIn} href="."><i className="fa fa-google-plus" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </Fragment>
         );
     }
 }
