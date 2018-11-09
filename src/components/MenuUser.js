@@ -8,14 +8,14 @@ import { chatWithUser } from '../store/actions/currentChat';
 class MenuUser extends Component {
     onChat = (id) => {
         this.props.chatWithUser(id);
-        this.props.history.push(`/${id}`);
+        this.props.history.push(`/user/${id}`);
     }
     render() {
         const { user } = this.props;
         const { username, online, lastSignInTime, photoURL } = user;
-        let status = "online";
+        let status = `online`;
         if (!online) {
-            status = moment(lastSignInTime.toDate()).calendar();
+            status = `Last online ${moment(lastSignInTime.toDate()).calendar()}`;
         }
 
         let isActive = "chat_list";
@@ -31,8 +31,10 @@ class MenuUser extends Component {
                         <img className="rounded-circle" src={photoURL} alt="sunil"/> 
                     </div>
                 <div className="chat_ib">
-                    <h5 style={{fontFamily : "'Spectral', serif"}}>{username}<span className="chat_date">{status}</span></h5>
-                    <p>{online ? "online" : "offline"}</p>
+                    <h5 style={{fontFamily : "'Spectral', serif"}}>{username}</h5>
+                    <p>
+                        <i style={{fontSize : "10px"}} className={online ? "fa fa-circle online": "fa fa-circle offline"}></i> {status}
+                    </p>
                 </div>
                 </div>
             </div>

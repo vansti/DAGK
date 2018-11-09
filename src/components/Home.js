@@ -2,7 +2,6 @@ import React, { Component, Fragment} from 'react';
 import MenuListUsers from './MenuListUsers';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import './styles/home.css'
 import ChatContent from './ChatContent';
 import {getDataUser} from '../store/actions/chatDataActions';
 import SignOut from './SignOut';
@@ -29,7 +28,7 @@ class Home extends Component {
             <Fragment>
                 <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
                     <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        View Profile
+                        <i className="fa fa-user-circle-o" aria-hidden="true"></i> View Profile 
                     </button>
                     <SignOut/>
                 </nav>

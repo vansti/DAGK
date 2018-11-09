@@ -21,23 +21,14 @@ class ListMessages extends Component {
         this.setState({
             idReceiver: this.props.match.params.id
         })
-        this.scrollToBottom();
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             idReceiver: nextProps.match.params.id
         })
-        this.scrollToBottom();
     }
-    componentDidUpdate(prevProps, prevState) {
-        this.scrollToBottom();
-    }
-    
 
-    scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    }
     
     render() {
         const idSender = this.props.auth.uid;
@@ -57,9 +48,8 @@ class ListMessages extends Component {
         }
         return (
             <div className="mesgs">
-                <div className="msg_history">
-                    {listMessage}  
-                    <div style={{ float: "left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}/>
+                <div className="msg_history">     
+                    {listMessage} 
                 </div>
                 <SendMessage />
             </div>

@@ -14,19 +14,19 @@ class Login extends Component {
     onSignIn = (e) => {
         e.preventDefault();
         this.props.signIn((id) => {
-            this.props.history.push(`/${id}`);
+            this.props.history.push(`/user/${id}`);
         });
     }
     componentDidMount() {
         const id = this.props.auth.uid;
         if (localStorage.getItem('login') === 'logged') {
-            this.props.history.push(`/${id}`);
+            this.props.history.push(`/user/${id}`);
         }
     }
     render() {
         const id = this.props.auth.uid;
         if (localStorage.getItem('login') === 'logged') {
-            return <Redirect to={`/${id}`} />;
+            return <Redirect to={`/user/${id}`} />;
         }
         return (
             <Fragment>
