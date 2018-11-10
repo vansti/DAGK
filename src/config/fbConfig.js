@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 
 // Replace this with your own config details
 var config = {
@@ -16,3 +17,4 @@ firebase.firestore().settings({ timestampsInSnapshots: true });
 
 export const ggAuth = new firebase.auth.GoogleAuthProvider();
 export default firebase;
+export const storage = firebase.storage().ref();

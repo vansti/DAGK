@@ -15,7 +15,7 @@ class MenuUser extends Component {
         const { username, online, lastSignInTime, photoURL } = user;
         let status = `online`;
         if (!online) {
-            status = `Last online ${moment(lastSignInTime.toDate()).calendar()}`;
+            status = `${moment(lastSignInTime.toDate()).calendar()}`;
         }
 
         let isActive = "chat_list";

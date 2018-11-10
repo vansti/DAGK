@@ -66,13 +66,45 @@ export const signOut = (callback) => {
     }
 };
 
-export const test = () => {
-    return (dispatch, getState, { getFirestore }) => {
+export const listenDisConnect = (uid) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
+        const firebase = getFirebase();
         const firestore = getFirestore();
-        console.log(firestore.update);
-        firestore.collection('users').get().then((querySnapshot) => {
-            querySnapshot.docs.forEach((item) => {              
-            })
+        var lastConnectedRef = firebase.database().ref('lastOnline/' + uid);
+        var connectedRef = firebase.database().ref("presence");
+        connectedRef.on("value", function (snap) {
+            let value = snap.val();
+            if (value) {
+                value = Object.entries(value);
+                value.forEach((item) => {
+                    firestore.get({ collection: 'users', where: [['uid', '==', item[0]]] }).then((data) => {
+                        if(data.docs.length > 0){
+                            const id = data.docs[0].id;
+                            firestore.update({collection: 'users', doc: id}, {online: true, lastSignInTime: null});
+                        }
+                    })
+                });  
+                lastConnectedRef.remove();
+                lastConnectedRef.onDisconnect().set({lastSignInTime: firebase.database.ServerValue.TIMESTAMP})
+            }
         })
+        var lastOnlineRef = firebase.database().ref('lastOnline');
+        lastOnlineRef.on("value", function(snap){
+            let value = snap.val();
+            if(value){
+                value = Object.entries(value);
+                value.forEach((item) => {
+                    firestore.get({ collection: 'users', where: [['uid', '==', item[0]]] }).then((data) => {
+                        if(data.docs.length > 0){
+                            const id = data.docs[0].id;
+                            firestore.update({collection: 'users', doc: id}, {online: false, lastSignInTime: new Date()}).then(() => {
+                                console.log('updated user');
+                            })
+                        }
+                    })
+                });                
+            }
+        })
+
     }
 };

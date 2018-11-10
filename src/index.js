@@ -13,6 +13,7 @@ import fbConfig from './config/fbConfig'
 
 const rrfConfig = {
   userProfile: 'profiles', // where profiles are stored in database
+  presence: 'presence',
   attachAuthIsReady: true,
   useFirestoreForProfile: true
 }
