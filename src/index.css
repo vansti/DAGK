@@ -207,9 +207,10 @@ body{
     font-size: 15px;
     min-height: 48px;
     width: 100%;
+    border: 1px solid #c4c4c4;
   }
   
-  .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+  .type_msg {position: relative;}
   .msg_send_btn {
     background: #05728f none repeat scroll 0 0;
     border: medium none;
@@ -225,7 +226,7 @@ body{
   }
   .messaging { padding: 0 0 50px 0;}
   .msg_history {
-    height: 516px;
+    height: 450px;
     overflow-y: auto;
   }
   .online {
@@ -235,3 +236,29 @@ body{
   .offline {
     color: red;
   }
+
+  .btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 0px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+    margin-left: 10px;
+  }
+
+.contact-profile{
+  padding:5px 10px 6px 10px; 
+  overflow:hidden; 
+  border-bottom:1px solid #c4c4c4;
+}
+.check{
+  color: blue;
+  font-size: 20px;
+}
+
+.uncheck{
+  color: white;
+  font-size: 12px;
+}

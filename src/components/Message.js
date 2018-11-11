@@ -3,12 +3,13 @@ import moment from 'moment';
 
 class Message extends Component {
 
-    renderMyMessage = (message) => {
+    renderMyMessage = (message,links) => {
         return (
         <Fragment>
             <div className="outgoing_msg">
                 <div className="sent_msg">
-                    <p style={{fontFamily : "'Archivo', sans-serif"}}>{message.message}</p>
+                    {links}
+                    <p style={{fontFamily : "'Archivo', sans-serif"}}>{message.text}</p>
                     <span className="time_date"> {moment(message.time.toDate()).calendar()} </span> 
                 </div>
             </div>  
@@ -16,7 +17,7 @@ class Message extends Component {
         )
       }
     
-    renderReceiveMessage = (message) => {
+    renderReceiveMessage = (message,links) => {
         return (
           <Fragment>
             <div className="incoming_msg">
@@ -25,7 +26,8 @@ class Message extends Component {
                 </div>
                 <div className="received_msg">
                     <div className="received_withd_msg">
-                        <p style={{fontFamily : "'Archivo', sans-serif"}}>{message.message}</p>
+                        {links}
+                        <p style={{fontFamily : "'Archivo', sans-serif"}}>{message.text}</p>
                         <span className="time_date">{moment(message.time.toDate()).calendar()}</span>
                     </div>
                 </div>
@@ -36,8 +38,15 @@ class Message extends Component {
 
     render() {
         const {message, status} = this.props;
+        const imgLinks = message.text.match(/(https?|ftp:)([^\s]+)/g);
+        let links = null;
+        if(imgLinks){
+            links = imgLinks.map((link, index) => {
+                return <img  key={index} className="img-thumbnail" src={link} alt="" />
+            })
+        }
         return (
-            <Fragment>{status ? this.renderMyMessage(message) : this.renderReceiveMessage(message)}</Fragment>
+            <Fragment>{status ? this.renderMyMessage(message,links) : this.renderReceiveMessage(message,links)}</Fragment>
         );
     }
 }

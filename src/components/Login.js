@@ -33,7 +33,7 @@ class Login extends Component {
                 <div className="welcome">Welcome to Chat App</div>
                 <ul>
                     <li>
-                        <a onClick={this.onSignIn} href="."><i className="fa fa-google-plus" aria-hidden="true"></i></a>
+                        <a onClick={this.onSignIn} href="#"><i className="fa fa-google-plus" aria-hidden="true"></i></a>
                     </li>
                 </ul>
             </Fragment>

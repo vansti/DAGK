@@ -47,7 +47,7 @@ class ListMessages extends Component {
             })
         }
         return (
-            <div className="mesgs">
+            <div className="mesgs">  
                 <div className="msg_history">     
                     {listMessage} 
                 </div>

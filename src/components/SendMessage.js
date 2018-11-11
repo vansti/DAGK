@@ -4,15 +4,19 @@ import { withFirestore, firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import _ from 'lodash';
-import moment from 'moment';
 import {sendMessage} from './../store/actions/messageActions';
+import { updatePriority } from './../store/actions/userActions';
 
 class SendMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             message: '',
-            idReceiver: ''
+            idReceiver: '',
+            image: '',
+            url: '',
+            previewURL: [],
+            images: []
         }
     }
 
@@ -37,7 +41,7 @@ class SendMessage extends Component {
         });
     }
 
-    onHandleSubmit = (e) =>{
+    onHandleSubmit = (e) => {
         e.preventDefault();
         const idSender = this.props.auth.uid;
         const idReceiver = this.state.idReceiver;
@@ -47,15 +51,57 @@ class SendMessage extends Component {
             idReceiver: idReceiver,
             idSum: idSum,
             message: {
-                message: this.state.message,
+                text: this.state.message,
+                images: this.state.images,
                 idSender: idSender,
                 photoURL: this.props.auth.photoURL,
                 time: new Date()
             }
         }
-        this.props.sendMessage(message);
+        const priorityUser = {
+            idSender: idSender,
+            idReceiver: idReceiver,
+            timeChat: new Date
+        }
+        if (this.state.message !== '' || this.state.images.length > 0) {
+            this.props.sendMessage(message);
+            this.props.updatePriority(priorityUser);
+            this.setState({
+                message: '',
+                image: '',
+                images: [],
+                previewURL: []
+            })
+        }
+    }
+
+    onHandleLoadImage = (e) => {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.onloadend = () => {
+            if (file) {
+                this.setState({
+                    image: file,
+                    reset: true,
+                    previewURL: [...this.state.previewURL, reader.result],
+                    images: [...this.state.images, file]
+                }, () => {
+                    this.setState({
+                        reset: false
+                    })
+                });
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+
+    onDeletePreview = (index) => {
+        let previewImg = this.state.previewURL;
+        let images = this.state.images;
+        images.splice(index, 1);
+        previewImg.splice(index, 1);
         this.setState({
-            message: ''
+            previewURL: previewImg
         })
     }
     
@@ -70,7 +116,7 @@ class SendMessage extends Component {
         return (
             <div className="type_msg">  
                 <div className="input_msg_write">
-                    <input type="text" name="message" onChange={this.onHandleChange} className="write_msg" value={value} placeholder="Type a message" onKeyPress={this.handleKeyPress}/>
+                    <input type="text" name="message" onChange={this.onHandleChange}  className="write_msg" value={value} placeholder="Type a message" onKeyPress={this.handleKeyPress}/>
                     <button onClick={this.onHandleSubmit} className="msg_send_btn" type="button"><i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                 </div>
             </div>
@@ -89,7 +135,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        sendMessage: (message) => dispatch(sendMessage(message))
+        sendMessage: (message) => dispatch(sendMessage(message)),
+        updatePriority: (priorityUser) => dispatch(updatePriority(priorityUser))
     }
 }
 
