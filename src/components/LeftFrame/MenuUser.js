@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { chatWithUser } from '../store/actions/currentChat';
+import { chatWithUser } from '../../store/actions/currentChat';
 
 
 class MenuUser extends Component {
@@ -15,7 +15,7 @@ class MenuUser extends Component {
         const { username, online, lastSignInTime, photoURL } = user;
         let status = `online`;
         if (!online) {
-            status = `${moment(lastSignInTime.toDate()).calendar()}`;
+            status = `${moment(lastSignInTime.toDate()).fromNow()}`;
         }
 
         let isActive = "chat_list";

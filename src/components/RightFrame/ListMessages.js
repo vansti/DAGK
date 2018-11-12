@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import _ from 'lodash';
-import { sendMessage } from './../store/actions/messageActions';
+import { sendMessage } from '../../store/actions/messageActions';
 import SendMessage from './SendMessage';
 
 class ListMessages extends Component {

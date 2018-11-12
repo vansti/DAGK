@@ -4,8 +4,8 @@ import { withFirestore, firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import _ from 'lodash';
-import {sendMessage} from './../store/actions/messageActions';
-import { updatePriority } from './../store/actions/userActions';
+import {sendMessage} from '../../store/actions/messageActions';
+import { updatePriority } from '../../store/actions/userActions';
 
 class SendMessage extends Component {
     constructor(props) {
@@ -74,36 +74,6 @@ class SendMessage extends Component {
             })
         }
     }
-
-    onHandleLoadImage = (e) => {
-        let file = e.target.files[0];
-        let reader = new FileReader();
-        reader.onloadend = () => {
-            if (file) {
-                this.setState({
-                    image: file,
-                    reset: true,
-                    previewURL: [...this.state.previewURL, reader.result],
-                    images: [...this.state.images, file]
-                }, () => {
-                    this.setState({
-                        reset: false
-                    })
-                });
-            }
-        }
-        reader.readAsDataURL(file);
-    }
-
-    onDeletePreview = (index) => {
-        let previewImg = this.state.previewURL;
-        let images = this.state.images;
-        images.splice(index, 1);
-        previewImg.splice(index, 1);
-        this.setState({
-            previewURL: previewImg
-        })
-    }
     
     handleKeyPress = (event) => {
         if(event.key == 'Enter'){
@@ -117,7 +87,7 @@ class SendMessage extends Component {
             <div className="type_msg">  
                 <div className="input_msg_write">
                     <input type="text" name="message" onChange={this.onHandleChange}  className="write_msg" value={value} placeholder="Type a message" onKeyPress={this.handleKeyPress}/>
-                    <button onClick={this.onHandleSubmit} className="msg_send_btn" type="button"><i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <button onClick={this.onHandleSubmit} className="msg_send_btn" type="button"><i className="fa fa-paper-plane-o" style={{marginRight:"10px"}} aria-hidden="true"></i></button>
                 </div>
             </div>
         );

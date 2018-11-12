@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import SignOut from './SignOut';
 import { withRouter } from 'react-router-dom';
 import { withFirestore, firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import _ from 'lodash';
-import moment from 'moment';
-import {updatePriority} from './../store/actions/userActions';
+import {updatePriority} from '../../store/actions/userActions';
 
 class ContactProfile extends Component {
     constructor(props) {

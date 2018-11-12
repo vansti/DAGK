@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { signOut } from '../store/actions/authActions';
-import {compose} from 'redux';
+import { signOut } from '../../store/actions/authActions';
 import { connect } from 'react-redux';
-import { withFirestore, firestoreConnect } from 'react-redux-firebase';
 
 class SignOut extends Component {
     onSignOut = () => {

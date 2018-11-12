@@ -207,10 +207,9 @@ body{
     font-size: 15px;
     min-height: 48px;
     width: 100%;
-    border: 1px solid #c4c4c4;
   }
   
-  .type_msg {position: relative;}
+  .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
   .msg_send_btn {
     background: #05728f none repeat scroll 0 0;
     border: medium none;
@@ -221,12 +220,12 @@ body{
     height: 33px;
     position: absolute;
     right: 0;
-    top: 11px;
+    top: 9px;
     width: 33px;
   }
   .messaging { padding: 0 0 50px 0;}
   .msg_history {
-    height: 450px;
+    height: 465px;
     overflow-y: auto;
   }
   .online {

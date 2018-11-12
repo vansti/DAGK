@@ -1,11 +1,11 @@
 import React, { Component, Fragment} from 'react';
-import MenuListUsers from './MenuListUsers';
+import MenuListUsers from '../LeftFrame/MenuListUsers';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import ChatContent from './ChatContent';
-import {getDataUser} from '../store/actions/chatDataActions';
+import ChatContent from '../RightFrame/ChatContent';
+import {getDataUser} from '../../store/actions/chatDataActions';
 import SignOut from './SignOut';
-import {listenDisConnect} from '../store/actions/authActions';
+import {listenDisConnect} from '../../store/actions/authActions';
 
 class Home extends Component {
 
@@ -64,9 +64,9 @@ class Home extends Component {
                             <MenuListUsers/>
                             <ChatContent />
                         </div>
-                    </div>
+                    </div>                 
                 </div>
-                
+                <p class="text-center top_spac"> Made by <span style={{fontFamily : "'Playfair Display', serif"}}> Phạm Lê Thiện Tâm</span></p>
             </Fragment>
             
         )
