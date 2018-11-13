@@ -9,7 +9,7 @@ class Message extends Component {
             <div className="outgoing_msg">
                 <div className="sent_msg">
                     {links}
-                    <p style={{fontFamily : "'Archivo', sans-serif"}}>{message.text}</p>
+                    <p style={{fontFamily : "'Archivo', sans-serif"}} id="teamRoster">{message.text}</p>
                     <span className="time_date"> {moment(message.time.toDate()).calendar()} </span> 
                 </div>
             </div>  
@@ -27,7 +27,7 @@ class Message extends Component {
                 <div className="received_msg">
                     <div className="received_withd_msg">
                         {links}
-                        <p style={{fontFamily : "'Archivo', sans-serif"}}>{message.text}</p>
+                        <p style={{fontFamily : "'Archivo', sans-serif"}} id="teamRoster">{message.text}</p>
                         <span className="time_date">{moment(message.time.toDate()).calendar()}</span>
                     </div>
                 </div>
@@ -38,9 +38,12 @@ class Message extends Component {
 
     render() {
         const {message, status} = this.props;
-        const imgLinks = message.text.match(/(https?|ftp:)([^\s]+)/g);
+        const imgLinks = message.text.match(/(https?|ftp:)([^\s]+)/g); 
         let links = null;
         if(imgLinks){
+            message.text = imgLinks.map((text,index) => {
+                return <a key={index} style={{color: "white"}} href={text}>{text}</a>
+            })
             links = imgLinks.map((link, index) => {
                 return <img  key={index} className="img-thumbnail" src={link} alt="" />
             })

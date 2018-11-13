@@ -66,7 +66,7 @@ class Home extends Component {
                         </div>
                     </div>                 
                 </div>
-                <p class="text-center top_spac"> Made by <span style={{fontFamily : "'Playfair Display', serif"}}> Phạm Lê Thiện Tâm</span></p>
+                <p className="text-center top_spac"> Made by <span style={{fontFamily : "'Playfair Display', serif"}}> Phạm Lê Thiện Tâm</span></p>
             </Fragment>
             
         )
