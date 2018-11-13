@@ -42,7 +42,7 @@ class Message extends Component {
         let links = null;
         if(imgLinks){
             message.text = imgLinks.map((text,index) => {
-                return <a key={index} style={{color: "white"}} href={text}>{text}</a>
+                return <a key={index} style={{color: "black"}} href={text}>{text}</a>
             })
             links = imgLinks.map((link, index) => {
                 return <img  key={index} className="img-thumbnail" src={link} alt="" />
